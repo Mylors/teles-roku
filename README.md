@@ -44,8 +44,8 @@ Dado que es una app privada de uso personal, se instala usando el **Modo Desarro
 2. En la pantalla que aparece, selecciona **Enable installer and restart**.
 3. Acepta los términos de uso y crea una **contraseña de desarrollador** (anótala junto con la dirección IP de tu Roku, por ejemplo `192.168.1.50`). El dispositivo se reiniciará.
 
-### Paso 2: Empaquetar e Instalar
-1. Comprime el contenido de este repositorio en un archivo `.zip` (asegúrate de que el archivo `manifest` esté en la raíz del zip).
+### Paso 2: Empaquetar e Instalar 
+1. Descarga el archivo adjunto **[teles-roku.zip](https://github.com/Mylors/teles-roku/releases/tag/v.1.0.0)** de este release.
 2. Abre un navegador web en tu computadora e ingresa a la IP de tu Roku (ej. `http://192.168.1.50`).
 3. Inicia sesión con el usuario `rokudev` y la contraseña de desarrollador que creaste.
 4. En la interfaz web, haz clic en **Upload**, selecciona tu archivo `.zip` y haz clic en **Install**.
