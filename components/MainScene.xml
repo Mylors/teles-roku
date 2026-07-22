@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<component name="MainScene" extends="Scene">
+    <script type="text/brightscript" uri="pkg:/components/MainScene.brs" />
+
+    <children>
+        <Rectangle 
+            id="background" 
+            width="1920" 
+            height="1080" 
+            color="0x0f0f12FF" />
+
+        <LayoutGroup id="headerGroup" translation="[80, 60]" layoutDirection="vert" itemSpacing="5">
+            <Label 
+                id="titleLabel" 
+                text="teles" 
+                font="font:LargeBoldSystemFont" 
+                color="0x8B5CF6FF" />
+            <Label 
+                id="subtitleLabel" 
+                text="Transmisiones de noticias de Chile y el mundo" 
+                font="font:SmallSystemFont" 
+                color="0x9CA3AFFF" />
+        </LayoutGroup>
+
+        <Label 
+            id="selectedChannelLabel" 
+            text="" 
+            font="font:LargeBoldSystemFont" 
+            color="0x8B5CF6FF" 
+            translation="[800, 160]" />
+
+        <Label 
+            id="loadingLabel" 
+            text="Cargando lista de canales..." 
+            font="font:MediumSystemFont" 
+            color="0xFFFFFFFF" 
+            translation="[80, 200]" 
+            visible="true" />
+
+        <MiniKeyboard 
+            id="searchKeyboard" 
+            translation="[80, 240]" 
+            focusable="true"
+            visible="false" />
+
+        <PosterGrid 
+            id="channelGrid" 
+            translation="[800, 240]" 
+            basePosterSize="[320, 180]" 
+            itemSpacing="[35, 60]" 
+            numColumns="3" 
+            numRows="3" 
+            caption1NumLines="1" 
+            caption1Color="0xE0E0E0FF"
+            failedBitmapUri="pkg:/images/channel_icon_fhd.jpg"
+            loadingBitmapUri="pkg:/images/channel_icon_fhd.jpg"
+            focusable="true"
+            visible="false" />
+
+        <Label 
+            id="instructionsLabel" 
+            text="[*] Favorito" 
+            font="font:SmallSystemFont" 
+            color="0x6B7280FF" 
+            translation="[80, 1000]" />
+
+        <Video 
+            id="videoPlayer" 
+            width="1920" 
+            height="1080" 
+            translation="[0, 0]" 
+            visible="false" />
+    </children>
+</component>

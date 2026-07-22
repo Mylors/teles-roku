@@ -1,0 +1,18 @@
+title=teles
+subtitle=Noticias en vivo
+major_version=0
+minor_version=34
+build_version=1
+
+# Focus icon for home screen
+mm_icon_focus_fhd=pkg:/images/channel_icon_fhd.jpg
+mm_icon_focus_hd=pkg:/images/channel_icon_hd.jpg
+
+# Splash screen
+splash_screen_fhd=pkg:/images/splash_screen_fhd.jpg
+splash_screen_hd=pkg:/images/splash_screen_hd.jpg
+splash_duration=2000
+splash_min_time=1500
+
+# UI resolutions supported
+ui_resolutions=fhd
