@@ -3,72 +3,361 @@
     <script type="text/brightscript" uri="pkg:/components/MainScene.brs" />
 
     <children>
-        <Rectangle 
-            id="background" 
-            width="1920" 
-            height="1080" 
-            color="0x0f0f12FF" />
+        <!-- App Shell Background -->
+        <Rectangle
+            id="background"
+            width="1920"
+            height="1080"
+            color="0x0B0B0FFF" />
 
-        <LayoutGroup id="headerGroup" translation="[80, 60]" layoutDirection="vert" itemSpacing="5">
-            <Label 
-                id="titleLabel" 
-                text="teles" 
-                font="font:LargeBoldSystemFont" 
-                color="0x8B5CF6FF" />
-            <Label 
-                id="subtitleLabel" 
-                text="Transmisiones de noticias de Chile y el mundo" 
-                font="font:SmallSystemFont" 
-                color="0x9CA3AFFF" />
-        </LayoutGroup>
+        <!-- Browse View -->
+        <Group id="browseGroup">
+            <!-- Left Navigation Sidebar -->
+            <Rectangle
+                id="sidebarBg"
+                width="396"
+                height="1080"
+                color="0x111119FF" />
 
-        <Label 
-            id="selectedChannelLabel" 
-            text="" 
-            font="font:LargeBoldSystemFont" 
-            color="0x8B5CF6FF" 
-            translation="[800, 160]" />
+            <Rectangle
+                id="sidebarDivider"
+                translation="[396, 0]"
+                width="2"
+                height="1080"
+                color="0x222230FF" />
 
-        <Label 
-            id="loadingLabel" 
-            text="Cargando lista de canales..." 
-            font="font:MediumSystemFont" 
-            color="0xFFFFFFFF" 
-            translation="[80, 200]" 
-            visible="true" />
+            <!-- Brand Header (inside FHD Safe Zone x>=96, y>=54) -->
+            <Group id="brandGroup" translation="[96, 58]">
+                <Rectangle
+                    translation="[0, 4]"
+                    width="6"
+                    height="36"
+                    color="0x8B5CF6FF" />
+                <Label
+                    id="titleLabel"
+                    translation="[18, -4]"
+                    width="258"
+                    height="48"
+                    vertAlign="center"
+                    maxLines="1"
+                    font="font:LargeBoldSystemFont"
+                    color="0xFFFFFFFF"
+                    text="teles" />
+                <Label
+                    id="subtitleLabel"
+                    translation="[0, 46]"
+                    width="276"
+                    height="24"
+                    vertAlign="center"
+                    maxLines="1"
+                    font="font:SmallestSystemFont"
+                    color="0x9CA3AFFF"
+                    text="TV en vivo · Chile y el mundo" />
+            </Group>
 
-        <MiniKeyboard 
-            id="searchKeyboard" 
-            translation="[80, 240]" 
-            focusable="true"
+            <!-- Category & Search Navigation Rail -->
+            <MarkupList
+                id="sidebarList"
+                translation="[96, 150]"
+                itemComponentName="SidebarItem"
+                itemSize="[276, 54]"
+                itemSpacing="[0, 8]"
+                numRows="9"
+                drawFocusFeedback="false"
+                vertFocusAnimationStyle="floatingFocus"
+                visible="false" />
+
+            <!-- Remote Legend Card -->
+            <Group id="hintGroup" translation="[96, 926]" visible="false">
+                <Poster
+                    width="276"
+                    height="84"
+                    uri="pkg:/images/ui/hint_box.png" />
+                <Label
+                    translation="[16, 14]"
+                    width="244"
+                    height="26"
+                    vertAlign="center"
+                    maxLines="1"
+                    font="font:SmallestSystemFont"
+                    color="0xC4B5FDFF"
+                    text="[*] Guardar en Favoritos" />
+                <Label
+                    translation="[16, 44]"
+                    width="244"
+                    height="26"
+                    vertAlign="center"
+                    maxLines="1"
+                    font="font:SmallestSystemFont"
+                    color="0x9CA3AFFF"
+                    text="[OK] Reproducir canal" />
+            </Group>
+
+            <!-- Focused Channel Hero Header -->
+            <Group id="heroGroup" translation="[434, 58]" visible="false">
+                <Label
+                    id="selectedChannelLabel"
+                    width="1060"
+                    height="44"
+                    vertAlign="center"
+                    maxLines="1"
+                    font="font:MediumBoldSystemFont"
+                    color="0xFFFFFFFF"
+                    text="" />
+
+                <Label
+                    id="counterLabel"
+                    translation="[1070, 0]"
+                    width="316"
+                    height="44"
+                    horizAlign="right"
+                    vertAlign="center"
+                    maxLines="1"
+                    font="font:SmallestSystemFont"
+                    color="0x9CA3AFFF"
+                    text="" />
+
+                <Poster
+                    id="heroLiveDot"
+                    translation="[0, 59]"
+                    width="12"
+                    height="12"
+                    uri="pkg:/images/ui/live_dot.png"
+                    visible="false" />
+
+                <Label
+                    id="selectedMetaLabel"
+                    translation="[22, 50]"
+                    width="1010"
+                    height="30"
+                    vertAlign="center"
+                    maxLines="1"
+                    font="font:SmallSystemFont"
+                    color="0xA1A1AAFF"
+                    text="" />
+
+                <Label
+                    id="activeFilterLabel"
+                    translation="[1040, 50]"
+                    width="346"
+                    height="30"
+                    horizAlign="right"
+                    vertAlign="center"
+                    maxLines="1"
+                    font="font:SmallestSystemFont"
+                    color="0xC4B5FDFF"
+                    text="" />
+
+                <Rectangle
+                    translation="[0, 94]"
+                    width="1386"
+                    height="2"
+                    color="0x1F1F2EFF" />
+            </Group>
+
+            <!-- Modern 4x3 Channel Cards Grid -->
+            <MarkupGrid
+                id="channelGrid"
+                translation="[434, 184]"
+                itemComponentName="ChannelCard"
+                itemSize="[322, 240]"
+                itemSpacing="[32, 28]"
+                numColumns="4"
+                numRows="3"
+                drawFocusFeedback="false"
+                visible="false" />
+
+            <!-- Loading / Empty / Error State View -->
+            <Group id="stateGroup" translation="[434, 430]" visible="true">
+                <Label
+                    id="stateTitleLabel"
+                    width="1386"
+                    height="44"
+                    horizAlign="center"
+                    vertAlign="center"
+                    maxLines="1"
+                    font="font:MediumBoldSystemFont"
+                    color="0xFFFFFFFF"
+                    text="Cargando canales en vivo..." />
+                <Label
+                    id="stateSubLabel"
+                    translation="[0, 52]"
+                    width="1386"
+                    height="64"
+                    horizAlign="center"
+                    maxLines="2"
+                    font="font:SmallSystemFont"
+                    color="0x9CA3AFFF"
+                    text="Conectando con el directorio de señales..." />
+            </Group>
+        </Group>
+
+        <!-- On-Demand Search Modal -->
+        <Group id="searchModalGroup" visible="false">
+            <Rectangle
+                width="1920"
+                height="1080"
+                color="0x06060AE0" />
+
+            <Group translation="[580, 170]">
+                <Poster
+                    width="760"
+                    height="740"
+                    uri="pkg:/images/ui/modal_bg.png" />
+
+                <Label
+                    id="modalTitleLabel"
+                    translation="[44, 28]"
+                    width="400"
+                    height="40"
+                    vertAlign="center"
+                    maxLines="1"
+                    font="font:MediumBoldSystemFont"
+                    color="0xFFFFFFFF"
+                    text="Buscar canales" />
+
+                <Label
+                    id="modalCountLabel"
+                    translation="[448, 32]"
+                    width="268"
+                    height="34"
+                    horizAlign="right"
+                    vertAlign="center"
+                    maxLines="1"
+                    font="font:SmallestSystemFont"
+                    color="0xA78BFAFF"
+                    text="" />
+
+                <Rectangle
+                    translation="[44, 82]"
+                    width="672"
+                    height="1"
+                    color="0x262636FF" />
+
+                <MiniKeyboard
+                    id="searchKeyboard"
+                    translation="[168, 108]"
+                    scale="[0.74, 0.74]"
+                    showTextEditBox="true" />
+
+                <Rectangle
+                    translation="[44, 654]"
+                    width="672"
+                    height="1"
+                    color="0x262636FF" />
+
+                <Label
+                    id="modalHintLabel"
+                    translation="[44, 674]"
+                    width="672"
+                    height="34"
+                    horizAlign="center"
+                    vertAlign="center"
+                    maxLines="1"
+                    font="font:SmallestSystemFont"
+                    color="0x9CA3AFFF"
+                    text="[Atrás] Ver resultados     [*] Limpiar búsqueda" />
+            </Group>
+        </Group>
+
+        <!-- Fullscreen Video Player -->
+        <Video
+            id="videoPlayer"
+            width="1920"
+            height="1080"
+            translation="[0, 0]"
             visible="false" />
 
-        <PosterGrid 
-            id="channelGrid" 
-            translation="[800, 240]" 
-            basePosterSize="[320, 180]" 
-            itemSpacing="[35, 60]" 
-            numColumns="3" 
-            numRows="3" 
-            caption1NumLines="1" 
-            caption1Color="0xE0E0E0FF"
-            failedBitmapUri="pkg:/images/channel_icon_fhd.jpg"
-            loadingBitmapUri="pkg:/images/channel_icon_fhd.jpg"
-            focusable="true"
-            visible="false" />
+        <!-- Live TV Zapping & Multi-Signal OSD -->
+        <Group id="playerOsd" translation="[96, 868]" visible="false">
+            <Poster
+                width="1728"
+                height="148"
+                uri="pkg:/images/ui/osd_bg.png" />
 
-        <Label 
-            id="instructionsLabel" 
-            text="[*] Favorito" 
-            font="font:SmallSystemFont" 
-            color="0x6B7280FF" 
-            translation="[80, 1000]" />
+            <Poster
+                translation="[34, 34]"
+                width="12"
+                height="12"
+                uri="pkg:/images/ui/live_dot.png" />
 
-        <Video 
-            id="videoPlayer" 
-            width="1920" 
-            height="1080" 
-            translation="[0, 0]" 
-            visible="false" />
+            <Label
+                id="osdLiveTag"
+                translation="[54, 24]"
+                width="200"
+                height="32"
+                vertAlign="center"
+                maxLines="1"
+                font="font:SmallestSystemFont"
+                color="0xC4B5FDFF"
+                text="EN VIVO" />
+
+            <Label
+                id="osdSignalTag"
+                translation="[1360, 24]"
+                width="334"
+                height="32"
+                horizAlign="right"
+                vertAlign="center"
+                maxLines="1"
+                font="font:SmallestSystemFont"
+                color="0xC4B5FDFF"
+                text="" />
+
+            <Label
+                id="osdChannelTitle"
+                translation="[34, 56]"
+                width="1150"
+                height="44"
+                vertAlign="center"
+                maxLines="1"
+                font="font:MediumBoldSystemFont"
+                color="0xFFFFFFFF"
+                text="" />
+
+            <Label
+                id="osdMetaLabel"
+                translation="[34, 102]"
+                width="800"
+                height="30"
+                vertAlign="center"
+                maxLines="1"
+                font="font:SmallestSystemFont"
+                color="0xA1A1AAFF"
+                text="" />
+
+            <Label
+                id="osdControlsHint"
+                translation="[844, 102]"
+                width="850"
+                height="30"
+                horizAlign="right"
+                vertAlign="center"
+                maxLines="1"
+                font="font:SmallestSystemFont"
+                color="0x9CA3AFFF"
+                text="[Arriba/Abajo] Cambiar canal   [Replay] Cambiar señal   [Atrás] Guía" />
+        </Group>
+
+        <!-- Floating Status Toast -->
+        <Group id="toastGroup" translation="[640, 54]" visible="false">
+            <Poster
+                width="640"
+                height="62"
+                uri="pkg:/images/ui/toast_bg.png" />
+            <Label
+                id="toastLabel"
+                width="640"
+                height="62"
+                horizAlign="center"
+                vertAlign="center"
+                maxLines="1"
+                font="font:SmallBoldSystemFont"
+                color="0xF4F4F6FF"
+                text="" />
+        </Group>
+
+        <Timer id="osdTimer" duration="4.5" repeat="false" />
+        <Timer id="toastTimer" duration="2.5" repeat="false" />
     </children>
 </component>

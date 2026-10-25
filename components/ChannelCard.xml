@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<component name="ChannelCard" extends="Group">
+    <interface>
+        <field id="itemContent" type="node" onChange="onContentChanged" />
+        <field id="focusPercent" type="float" onChange="onFocusChanged" />
+        <field id="gridHasFocus" type="bool" onChange="onFocusChanged" />
+        <field id="itemHasFocus" type="bool" onChange="onFocusChanged" />
+    </interface>
+
+    <script type="text/brightscript" uri="pkg:/components/ChannelCard.brs" />
+
+    <children>
+        <Group id="cardRoot" scaleRotateCenter="[161, 120]">
+            <Poster
+                id="bgBase"
+                width="322"
+                height="240"
+                uri="pkg:/images/ui/card_bg.png" />
+
+            <Poster
+                id="bgSelected"
+                width="322"
+                height="240"
+                uri="pkg:/images/ui/card_bg_selected.png"
+                visible="false" />
+
+            <Poster
+                id="bgFocus"
+                width="322"
+                height="240"
+                uri="pkg:/images/ui/card_bg_focus.png"
+                opacity="0.0" />
+
+            <!-- Center Logo Stage -->
+            <Poster
+                id="stageBg"
+                translation="[16, 46]"
+                width="290"
+                height="112"
+                uri="pkg:/images/ui/logo_stage.png" />
+
+            <Poster
+                id="stageFocus"
+                translation="[16, 46]"
+                width="290"
+                height="112"
+                uri="pkg:/images/ui/logo_stage_focus.png"
+                opacity="0.0" />
+
+            <!-- Initials Fallback Avatar -->
+            <Group id="avatarGroup" translation="[125, 66]">
+                <Poster
+                    width="72"
+                    height="72"
+                    uri="pkg:/images/ui/avatar_circle.png" />
+                <Label
+                    id="initialsLabel"
+                    width="72"
+                    height="72"
+                    horizAlign="center"
+                    vertAlign="center"
+                    maxLines="1"
+                    font="font:SmallBoldSystemFont"
+                    color="0xE4E4E7FF" />
+            </Group>
+
+            <!-- Scale-to-fit Channel Logo (load options set BEFORE uri per Roku SDK) -->
+            <Poster
+                id="logoPoster"
+                translation="[41, 56]"
+                width="240"
+                height="92"
+                loadWidth="240"
+                loadHeight="92"
+                loadDisplayMode="scaleToFit"
+                visible="false" />
+
+            <!-- Top Row: Country Pill & Favorite Star -->
+            <Group id="countryGroup" translation="[16, 12]">
+                <Poster
+                    width="48"
+                    height="24"
+                    uri="pkg:/images/ui/pill_badge.png" />
+                <Label
+                    id="countryLabel"
+                    width="48"
+                    height="24"
+                    horizAlign="center"
+                    vertAlign="center"
+                    maxLines="1"
+                    font="font:SmallestSystemFont"
+                    color="0xD4D4D8FF" />
+            </Group>
+
+            <Poster
+                id="favIcon"
+                translation="[284, 13]"
+                width="22"
+                height="22"
+                uri="pkg:/images/ui/ic_star_gold.png"
+                visible="false" />
+
+            <!-- Bottom Channel Title & Metadata -->
+            <Label
+                id="titleLabel"
+                translation="[18, 168]"
+                width="286"
+                height="32"
+                vertAlign="center"
+                maxLines="1"
+                font="font:SmallBoldSystemFont"
+                color="0xE4E4E7FF" />
+
+            <Label
+                id="metaLabel"
+                translation="[18, 198]"
+                width="286"
+                height="26"
+                vertAlign="center"
+                maxLines="1"
+                font="font:SmallestSystemFont"
+                color="0x9CA3AFFF" />
+        </Group>
+    </children>
+</component>

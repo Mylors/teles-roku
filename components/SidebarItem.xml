@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<component name="SidebarItem" extends="Group">
+    <interface>
+        <field id="itemContent" type="node" onChange="onContentChanged" />
+        <field id="focusPercent" type="float" onChange="onFocusChanged" />
+        <field id="listHasFocus" type="bool" onChange="onFocusChanged" />
+    </interface>
+
+    <script type="text/brightscript" uri="pkg:/components/SidebarItem.brs" />
+
+    <children>
+        <Poster
+            id="activeBg"
+            width="276"
+            height="54"
+            uri="pkg:/images/ui/sidebar_active.png"
+            visible="false" />
+
+        <Poster
+            id="focusBg"
+            width="276"
+            height="54"
+            uri="pkg:/images/ui/sidebar_focus.png"
+            opacity="0.0" />
+
+        <Poster
+            id="iconPoster"
+            translation="[16, 15]"
+            width="24"
+            height="24"
+            loadWidth="24"
+            loadHeight="24"
+            loadDisplayMode="scaleToFit" />
+
+        <Label
+            id="titleLabel"
+            translation="[48, 0]"
+            width="158"
+            height="54"
+            vertAlign="center"
+            maxLines="1"
+            font="font:SmallSystemFont"
+            color="0xD4D4D8FF" />
+
+        <Group id="countGroup" translation="[210, 14]" visible="false">
+            <Poster
+                id="countBg"
+                width="52"
+                height="26"
+                uri="pkg:/images/ui/count_pill.png" />
+            <Poster
+                id="countFocusBg"
+                width="52"
+                height="26"
+                uri="pkg:/images/ui/count_pill_focus.png"
+                visible="false" />
+            <Label
+                id="countLabel"
+                width="52"
+                height="26"
+                horizAlign="center"
+                vertAlign="center"
+                maxLines="1"
+                font="font:SmallestSystemFont"
+                color="0xA1A1AAFF" />
+        </Group>
+    </children>
+</component>

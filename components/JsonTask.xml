@@ -2,7 +2,7 @@
 <component name="JsonTask" extends="Task">
     <interface>
         <field id="url" type="string" />
-        <field id="data" type="assocarray" />
+        <field id="response" type="assocarray" alwaysNotify="true" />
     </interface>
     <script type="text/brightscript" uri="pkg:/components/JsonTask.brs" />
 </component>
